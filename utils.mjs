@@ -14,6 +14,12 @@ export function memoize(fn) {
   }
 }
 
+export function * range(start, end) {
+  for (let i = start; i <= end; i++) {
+    yield i
+  }
+}
+
 export function resetTimer() {
   timer = performance.now()
 }

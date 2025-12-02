@@ -26,6 +26,11 @@ const arrayUtils = {
   },
   printMatrix() {
     console.log(this.map(r => r.join('')).join('\n'))
+  },
+  * chunk(chunkSize) {
+    for (let i = 0; i < this.length; i += chunkSize) {
+      yield this.slice(i, i + chunkSize);
+    }
   }
 }
 
@@ -96,5 +101,6 @@ const reducers = {
 const Generator = Object.getPrototypeOf(function* () {})
 Object.assign(Array.prototype, arrayUtils, reducers)
 Object.assign(Set.prototype, setUtils, reducers)
+Object.assign(String.prototype, arrayUtils)
 Object.assign(Generator.prototype, generatorUtils, reducers)
 
