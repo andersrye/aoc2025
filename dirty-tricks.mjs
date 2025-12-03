@@ -96,6 +96,12 @@ const reducers = {
   freq(keyFn = (el) => el) {
     return this.reduce((acc, val) => (acc[keyFn(val)] = (acc[keyFn(val)] ?? 0) + 1, acc), {})
   },
+  max() {
+    return this.reduce((acc, val) => val > acc ? val : acc)
+  },
+  maxWithIndex() {
+    return this.reduce(([aVal, aIndex], val, index) => val > aVal ? [val, index] : [aVal, aIndex], [-Infinity, -1])
+  }
 }
 
 const Generator = Object.getPrototypeOf(function* () {})
