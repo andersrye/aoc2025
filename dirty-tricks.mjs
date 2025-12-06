@@ -29,6 +29,9 @@ const arrayUtils = {
       }
     }
   },
+  transpose() {
+    return this[0].map((_, colIndex) => this.map(row => row[colIndex]));
+  },
   printMatrix() {
     console.log(this.map(r => r.join('')).join('\n'))
   },
