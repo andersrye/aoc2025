@@ -17,6 +17,11 @@ const arrayUtils = {
   toSet(mapFn) {
     return new Set(mapFn ? this.map(mapFn) : this)
   },
+  * iterate() {
+    for (const item of this) {
+      yield item
+    }
+  },
   * iterateMatrix() {
     for (let i = 0; i < this.length; i++) {
       for (let j = 0; j < this[0].length; j++) {
@@ -103,7 +108,7 @@ const reducers = {
     return this.reduce(([aVal, aIndex], val, index) => val > aVal ? [val, index] : [aVal, aIndex], [-Infinity, -1])
   },
   count() {
-    return this.reduce((acc) => acc + 1, 0)
+    return this.reduce((acc) => ++acc, 0)
   }
 }
 
