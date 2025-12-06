@@ -61,7 +61,7 @@ const generatorUtils = {
   reduce(fn, acc) {
     let i = 0
     for (const val of this) {
-      if(acc === undefined) {
+      if (acc === undefined) {
         acc = val
         continue
       }
@@ -101,6 +101,9 @@ const reducers = {
   },
   maxWithIndex() {
     return this.reduce(([aVal, aIndex], val, index) => val > aVal ? [val, index] : [aVal, aIndex], [-Infinity, -1])
+  },
+  count() {
+    return this.reduce((acc) => acc + 1, 0)
   }
 }
 

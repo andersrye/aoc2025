@@ -14,9 +14,19 @@ export function memoize(fn) {
   }
 }
 
-export function * range(start, end) {
+export function* range(start, end) {
   for (let i = start; i <= end; i++) {
     yield i
+  }
+}
+
+export function* neighbors(matrix, y, x) {
+  for (let i = y - 1; i <= y + 1; i++) {
+    for (let j = x - 1; j <= x + 1; j++) {
+      if (matrix[i]?.[j] !== undefined && !(i === y && j === x)) {
+        yield matrix[i][j]
+      }
+    }
   }
 }
 
@@ -26,6 +36,7 @@ export function resetTimer() {
 
 let solutionCounter = 0
 let totalTime = 0
+
 export function printSolution(solution) {
   const time = performance.now() - timer
   totalTime += time
@@ -43,7 +54,7 @@ export class PriorityQueue {
 
   push(val, priority) {
     const index = this.#vals.findIndex(([_, p]) => priority > p)
-    if(index === -1) {
+    if (index === -1) {
       this.#vals.push([val, priority])
     } else {
       this.#vals.splice(index, 0, [val, priority])
@@ -53,6 +64,7 @@ export class PriorityQueue {
   pop() {
     return this.#vals.pop()
   }
+
   get length() {
     return this.#vals.length
   }
