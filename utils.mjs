@@ -2,15 +2,16 @@ import './dirty-tricks.mjs'
 import fs from 'fs'
 
 export function getInput(day) {
-  const path = `./${process.env.EXAMPLE ? 'examples' : 'inputs'}/${day}.txt`
+  const folder = process.env.EXAMPLE ? 'examples' : 'inputs'
+  const path = `./${folder}/${day}.txt`
   return fs.readFileSync(path, 'utf-8')
 }
 
-export function memoize(fn) {
+export function memoize(fn, keyFn = (...args) => args.toString()) {
   const cache = {}
   return function (...args) {
-    const k = args.toString()
-    return cache[k] ?? (cache[k] = fn(...args))
+    const key = keyFn(...args)
+    return cache[key] ??= fn(...args)
   }
 }
 
