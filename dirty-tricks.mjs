@@ -110,8 +110,23 @@ const reducers = {
   maxWithIndex() {
     return this.reduce(([aVal, aIndex], val, index) => val > aVal ? [val, index] : [aVal, aIndex], [-Infinity, -1])
   },
+  minBy(comparator = (a,b) => a<b) {
+    return
+  },
   count() {
     return this.reduce((acc) => ++acc, 0)
+  }
+}
+
+const objectUtils = {
+  values() {
+    return Object.values(this)
+  },
+  entries() {
+    return Object.entries(this)
+  },
+  keys() {
+    return Object.keys(this)
   }
 }
 
@@ -119,5 +134,6 @@ const Generator = Object.getPrototypeOf(function* () {})
 Object.assign(Array.prototype, arrayUtils, reducers)
 Object.assign(Set.prototype, setUtils, reducers)
 Object.assign(String.prototype, arrayUtils)
+Object.assign(Object.prototype, objectUtils)
 Object.assign(Generator.prototype, generatorUtils, reducers)
 
