@@ -17,14 +17,18 @@ function countSplits(matrix, [y, x], visited = new Set()) {
 
 printSolution(countSplits(matrix, startPos))
 
-const countTimelines = memoize(function (matrix, [y, x]) {
-  const cell = matrix[y]?.[x]
-  if (!cell) return 1
-  if (cell === '^') {
-    return countTimelines(matrix, [y, x + 1]) + countTimelines(matrix, [y, x - 1])
-  } else {
-    return countTimelines(matrix, [y + 1, x])
-  }
-}, (_, pos) => pos.toString())
+function countTimelines(matrix, startPos) {
+  const count = memoize(function ([y, x]) {
+    const cell = matrix[y]?.[x]
+    if (!cell) {
+      return 1
+    } else if (cell === '^') {
+      return count([y, x + 1]) + count([y, x - 1])
+    } else {
+      return count([y + 1, x])
+    }
+  })
+  return count(startPos)
+}
 
 printSolution(countTimelines(matrix, startPos))
